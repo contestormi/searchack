@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "565089175354",
+    "project_id": "searchack-c729a",
+    "storage_bucket": "searchack-c729a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565089175354:android:256d92a5661293a6907203",
+        "android_client_info": {
+          "package_name": "com.example.searchack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565089175354-r5hk962nb1ik4faqa88ln9630nlhtqkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJaKa4j7btfYAo3l8mCs330p8v1rRU80U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565089175354-r5hk962nb1ik4faqa88ln9630nlhtqkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
