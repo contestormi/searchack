@@ -66,10 +66,11 @@ class LoginScreen extends StatelessWidget {
                             password: passwordController.text.trim(),
                           );
                   _result
-                      ? Navigator.pushReplacement(
+                      ? Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MainScreen()))
+                              builder: (context) => const MainScreen()),
+                          (_) => false)
                       : null;
                 },
                 child: const Text("Войти"),
