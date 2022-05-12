@@ -7,26 +7,23 @@ class AuthenticationService {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  // TODO Подумать над сигнатурой методов
-  Future<String> signIn(
-      {required String email, required String password}) async {
+  Future<bool> signIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return "Signed In";
+      return true;
     } on FirebaseException catch (e) {
-      return e.message!;
+      throw e.message!;
     }
   }
 
-  Future<String> signUp(
-      {required String email, required String password}) async {
+  Future<bool> signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return "Signed Up";
+      return true;
     } on FirebaseException catch (e) {
-      return e.message!;
+      throw e.message!;
     }
   }
 

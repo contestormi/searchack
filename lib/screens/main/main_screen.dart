@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:searchack/auth_service.dart';
+import 'package:searchack/services/auth_service.dart';
 
-class HomePage extends StatelessWidget {
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,12 +12,12 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("HOME"),
-            RaisedButton(
+            const Text("HOME"),
+            ElevatedButton(
               onPressed: () {
                 context.read<AuthenticationService>().signOut();
               },
-              child: Text("Sign out"),
+              child: const Text("Sign out"),
             ),
           ],
         ),

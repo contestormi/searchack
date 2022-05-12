@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:searchack/auth_service.dart';
-import 'package:searchack/home_page.dart';
-import 'package:searchack/sign_in_page.dart';
+import 'package:searchack/screens/auth/auth_wrapper_screen.dart';
+import 'package:searchack/services/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,14 +35,5 @@ class MyApp extends StatelessWidget {
         home: const AuthWrapper(),
       ),
     );
-  }
-}
-
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return context.watch<User?>() != null ? HomePage() : SignInPage();
   }
 }
