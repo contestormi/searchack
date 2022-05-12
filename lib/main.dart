@@ -27,12 +27,9 @@ class MyApp extends StatelessWidget {
           initialData: null,
         )
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const AuthWrapper(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AuthWrapper(),
       ),
     );
   }

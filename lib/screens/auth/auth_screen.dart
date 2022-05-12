@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:searchack/screens/login/login_screen.dart';
+import 'package:searchack/screens/register/register_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -49,7 +51,10 @@ class AuthScreen extends StatelessWidget {
               SizedBox(
                 width: 150,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  ),
                   child: const Text(
                     'Войти',
                     style: TextStyle(
@@ -72,7 +77,10 @@ class AuthScreen extends StatelessWidget {
               SizedBox(
                 width: 150,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegisterScreen())),
                   child: const Text(
                     'Регистрация',
                     style: TextStyle(

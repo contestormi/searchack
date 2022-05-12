@@ -10,7 +10,7 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.watch<User?>() != null
-        ? const MainPage()
+        ? const MainScreen()
         : const AuthScreen();
   }
 }
