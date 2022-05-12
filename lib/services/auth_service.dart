@@ -1,12 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthenticationService {
+abstract class AuthenticationService {
+  Stream<User?> get authStateChanges;
+
+  Future<bool> signIn({required String email, required String password});
+  Future<bool> signUp({required String email, required String password});
+  Future<void> signOut();
+}
+
+class AuthenticationServiceImpl implements AuthenticationService {
   final FirebaseAuth _firebaseAuth;
 
-  AuthenticationService(this._firebaseAuth);
+  AuthenticationServiceImpl(this._firebaseAuth);
 
+  @override
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  @override
   Future<bool> signIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -17,6 +27,7 @@ class AuthenticationService {
     }
   }
 
+  @override
   Future<bool> signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
@@ -27,6 +38,7 @@ class AuthenticationService {
     }
   }
 
+  @override
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Center(
         child: ElevatedButton(
-            child: Text(''),
+            child: const Text(''),
             onPressed: () async {
               await context.read<AuthenticationService>().signOut();
               context.read<User?>() == null

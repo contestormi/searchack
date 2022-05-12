@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
+          create: (_) => AuthenticationServiceImpl(FirebaseAuth.instance),
         ),
         StreamProvider<User?>(
           create: (context) =>
