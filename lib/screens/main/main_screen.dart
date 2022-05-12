@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:searchack/screens/chat/chat_screen.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
+import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,10 +15,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    SearchScreen(),
-    ChatScreen(),
-    ProfileScreen(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const SearchScreen(),
+    const ChatScreen(),
+    Provider<ProfileViewModel>(
+      create: (_) => ProfileViewModel(),
+      child: const ProfileScreen(),
+    ),
   ];
 
   void _onItemTapped(int index) {
