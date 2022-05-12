@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 abstract class DataBaseCollectionNames {
   static const String descriptionCollection = 'description';
+  static const String keySkills = 'key_skills';
+  static const String vkLink = 'vk_link';
 }
 
 abstract class DataBaseCollectionKeys {
@@ -15,7 +17,7 @@ abstract class DataBaseService {
       required String userEmail,
       required String text});
 
-  Future<String> getDataFromCollection(
+  Future<List<String>?> getDataFromCollection(
       {required String userEmail,
       required String collectionName,
       required String key});
@@ -37,14 +39,22 @@ class DataBaseServiceImpl implements DataBaseService {
   }
 
   @override
-  Future<String> getDataFromCollection(
+  Future<List<String>?> getDataFromCollection(
       {required String userEmail,
       required String collectionName,
       required String key}) async {
+    List<String> list = [];
     QuerySnapshot<Map<String, dynamic>> data = await _db
         .collection(collectionName)
         .where(DataBaseCollectionKeys.documentId, isEqualTo: userEmail)
         .get();
-    return data.docs.first.data()[key];
+    if (data.docs.isNotEmpty) {
+      for (var doc in data.docs) {
+        list.add(doc.data()[key]);
+      }
+      return list;
+    } else {
+      return null;
+    }
   }
 }
