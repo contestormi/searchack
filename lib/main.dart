@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               context.read<AuthenticationService>().authStateChanges,
           initialData: null,
-        )
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

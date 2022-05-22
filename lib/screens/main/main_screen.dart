@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/screens/chat/chat_screen.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
+import 'package:searchack/services/db_service.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -18,8 +20,15 @@ class _MainScreenState extends State<MainScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const SearchScreen(),
     const ChatScreen(),
-    Provider<ProfileViewModel>(
-      create: (_) => ProfileViewModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProfileViewModel>(
+          create: (_) => ProfileViewModel(),
+        ),
+        Provider<DataBaseServiceImpl>(
+          create: (_) => DataBaseServiceImpl(FirebaseFirestore.instance),
+        ),
+      ],
       child: const ProfileScreen(),
     ),
   ];

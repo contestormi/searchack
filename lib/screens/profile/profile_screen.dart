@@ -2,10 +2,57 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/screens/auth/auth_screen.dart';
+import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/services/auth_service.dart';
+import 'package:searchack/services/db_service.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController _descriptionTextController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  Future<void> init() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    await context.read<ProfileViewModel>().init(
+          db: context.read<DataBaseServiceImpl>(),
+          userEmail: context.read<User?>()!.email!,
+        );
+  }
+
+  Future<void> _showMyDialog(onPressed) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Редактировать описание'),
+          content: TextFormField(
+            controller: _descriptionTextController,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Изменить'),
+              onPressed: () async {
+                await onPressed();
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +101,9 @@ class ProfileScreen extends StatelessWidget {
                                   height: 100,
                                   width: 100,
                                   decoration: const BoxDecoration(
-                                      color: Colors.purple,
-                                      shape: BoxShape.circle),
+                                    color: Colors.purple,
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
                               ],
                             )
@@ -86,6 +134,36 @@ class ProfileScreen extends StatelessWidget {
                           child: Text(
                             'О себе',
                             style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _showMyDialog(() async {
+                            await context
+                                .read<ProfileViewModel>()
+                                .setDescriptionData(
+                                  db: context.read<DataBaseServiceImpl>(),
+                                  userEmail: context.read<User?>()!.email!,
+                                  text: _descriptionTextController.text,
+                                );
+                            await context
+                                .read<ProfileViewModel>()
+                                .getDescriptionData(
+                                  db: context.read<DataBaseServiceImpl>(),
+                                  userEmail: context.read<User?>()!.email!,
+                                );
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              context.watch<ProfileViewModel>().description ??
+                                  'Добавьте описание',
+                              style: const TextStyle(color: Colors.grey),
+                            ),
                           ),
                         ),
                       ),
