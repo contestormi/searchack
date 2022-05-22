@@ -11,7 +11,7 @@ abstract class DataBaseCollectionKeys {
   static const String documentId = '__name__';
 }
 
-abstract class DataBaseService {
+abstract class FirebaseFirestoreService {
   Future<void> setDataForCollection(
       {required String collectionName,
       required String userEmail,
@@ -23,10 +23,10 @@ abstract class DataBaseService {
       required String key});
 }
 
-class DataBaseServiceImpl implements DataBaseService {
+class FirebaseFirestoreServiceImpl implements FirebaseFirestoreService {
   final FirebaseFirestore _db;
 
-  DataBaseServiceImpl(this._db);
+  FirebaseFirestoreServiceImpl(this._db);
 
   @override
   Future<void> setDataForCollection(

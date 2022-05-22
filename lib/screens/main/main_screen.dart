@@ -5,7 +5,7 @@ import 'package:searchack/screens/chat/chat_screen.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
-import 'package:searchack/services/db_service.dart';
+import 'package:searchack/services/firebase_firestore_service.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -25,8 +25,9 @@ class _MainScreenState extends State<MainScreen> {
         ChangeNotifierProvider<ProfileViewModel>(
           create: (_) => ProfileViewModel(),
         ),
-        Provider<DataBaseServiceImpl>(
-          create: (_) => DataBaseServiceImpl(FirebaseFirestore.instance),
+        Provider<FirebaseFirestoreServiceImpl>(
+          create: (_) =>
+              FirebaseFirestoreServiceImpl(FirebaseFirestore.instance),
         ),
       ],
       child: const ProfileScreen(),

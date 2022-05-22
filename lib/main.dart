@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/screens/auth/auth_screen.dart';
 import 'package:searchack/services/auth_service.dart';
-import 'package:searchack/services/db_service.dart';
+import 'package:searchack/services/firebase_firestore_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +23,9 @@ class MyApp extends StatelessWidget {
         Provider<AuthenticationService>(
           create: (_) => AuthenticationServiceImpl(FirebaseAuth.instance),
         ),
-        Provider<DataBaseService>(
-          create: (_) => DataBaseServiceImpl(FirebaseFirestore.instance),
+        Provider<FirebaseFirestoreService>(
+          create: (_) =>
+              FirebaseFirestoreServiceImpl(FirebaseFirestore.instance),
         ),
         StreamProvider<User?>(
           create: (context) =>

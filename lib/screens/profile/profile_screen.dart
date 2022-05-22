@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:searchack/screens/auth/auth_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/services/auth_service.dart';
-import 'package:searchack/services/db_service.dart';
+import 'package:searchack/services/firebase_firestore_service.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> init() async {
     await Future.delayed(const Duration(milliseconds: 300));
     await context.read<ProfileViewModel>().init(
-          db: context.read<DataBaseServiceImpl>(),
+          db: context.read<FirebaseFirestoreServiceImpl>(),
           userEmail: context.read<User?>()!.email!,
         );
   }
@@ -94,21 +94,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 20),
-                      user.photoURL == null
-                          ? Stack(
-                              children: [
-                                Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: const BoxDecoration(
-                                    color: Colors.purple,
-                                    shape: BoxShape.circle,
+                      context.watch<ProfileViewModel>().avatarLink == null
+                          ? GestureDetector(
+                              onTap: () async {
+                                await context
+                                    .read<ProfileViewModel>()
+                                    .setProfileImage();
+                                await context
+                                    .read<ProfileViewModel>()
+                                    .getProfileImage();
+                              },
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    user.email!.split('@')[0].substring(0, 1) +
+                                        ' ' +
+                                        user.email!
+                                            .split('@')[1]
+                                            .substring(0, 1),
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                    ),
                                   ),
                                 ),
-                              ],
+                              ),
                             )
-                          : Image.network(context.watch<User?>()!.photoURL!),
-                      Text(user.email!),
+                          : GestureDetector(
+                              onTap: () async {
+                                await context
+                                    .read<ProfileViewModel>()
+                                    .setProfileImage();
+                                await context
+                                    .read<ProfileViewModel>()
+                                    .getProfileImage();
+                              },
+                              child: CircleAvatar(
+                                radius: 60.0,
+                                backgroundImage: NetworkImage(
+                                  context.watch<ProfileViewModel>().avatarLink!,
+                                ),
+                                backgroundColor: Colors.transparent,
+                              ),
+                            ),
+                      Text(user.email!, style: const TextStyle(fontSize: 20)),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Divider(),
@@ -143,14 +178,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             await context
                                 .read<ProfileViewModel>()
                                 .setDescriptionData(
-                                  db: context.read<DataBaseServiceImpl>(),
+                                  db: context
+                                      .read<FirebaseFirestoreServiceImpl>(),
                                   userEmail: context.read<User?>()!.email!,
                                   text: _descriptionTextController.text,
                                 );
                             await context
                                 .read<ProfileViewModel>()
                                 .getDescriptionData(
-                                  db: context.read<DataBaseServiceImpl>(),
+                                  db: context
+                                      .read<FirebaseFirestoreServiceImpl>(),
                                   userEmail: context.read<User?>()!.email!,
                                 );
                           });
