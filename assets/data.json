@@ -1,0 +1,32 @@
+[
+    {
+        "hackName": "Hack Money",
+        "image": "https://api.russianhackers.org/media/images/t9GR2oebzEje_BwpD4WcIZj0E8QiAUe2jj-1Pj-dmMJK4w7Med-o3f-WdVTppZiHBAytmge9ez1VO_GVflq9lBej.jpg",
+        "description": "Один из крупных хакатонов по DeFi от ETHGlobal. Постройте децентрализованное будущее финансов"
+    },
+    {
+        "hackName": "The Sandbox хакатон Maff Metaverse",
+        "image": "https://api.russianhackers.org/media/images/27a709b1c101f0f5bdf445cf4f30d0d2.png",
+        "description": "Хакатон, посвященный разработке арт-объектов в метавселенной The Sandbox. Метавселенные - это новые социальные сети, куда перетекает все социальное общение. Умение работать с объектами в метавселенной - это новый востребованный навык."
+    },
+    {
+        "hackName": "MIEThack 2022",
+        "image": "https://api.russianhackers.org/media/images/GQlYs6YW0_gFlZ2V2hf3tXiu0MMxs0uMnxpjZLXLme5VZbtlW90zUHZ3TTsaniKkfMqkHt0wA2ucwqCQO_ZZ29nBo.jpg",
+        "description": "Отдел образования и сотрудничества Студенческого совета НИУ МИЭТ проводит свой третий хакатон для студентов всех курсов вне зависимости от направления обучения, на котором будут представлены кейсы компаний-партнёров университета. Площадкой для очного хакатона выступит Точка кипения Зеленоград"
+    },
+    {
+        "hackName": "CODDY11100",
+        "image": "https://api.russianhackers.org/media/images/v0XsNcwWnOlGTfNgrAdLZtNMMm-1Ro6909DD25KmgL5zk3rHGkXGtutNkDRz2wlxV0hwSkAbKy8t3WwCgak2vsTe.jpg",
+        "description": "Хакатон для ребят 13-18 лет. Участникам будут предложены на выбор 5-7 кейсов. Свой проект авторы представят экспертам, судьям и партнёрам. Он пройдёт с 1 по 3 июня. За это время команды, в составе которых менеджер, дизайнер и разработчик, создадут прототип цифрового продукта для решения определённой проблемы."
+    },
+    {
+        "hackName": "AR/VR Hack",
+        "image": "https://api.russianhackers.org/media/images/QoPBWgB5Vy6W7jh1kzJ0IUKJTu0Rb2KicumcKiA2oYK8vpe_c_aP4u04xZ-2lM-Hknka9ix6K8k75znSg_c91GPQI.jpg",
+        "description": "Хакатон на платформе SAP. Приглашают разработчиков, дизайнеров, инженеров, художников, программистов и творческих энтузиастов AR/VR принять участие. Создавай свою собственную технологию AR/VR для рынка. Строй и вдохновляйся, чтобы открывать новые горизонты."
+    },
+    {
+        "hackName": "Moscow City Hack 2022",
+        "image": "https://api.russianhackers.org/media/images/rzCpAeyLHcOqL6FD2naVQXhF5kOYHjFID73iW8fAJ945TD8EhcaJkUsa8VrSCQII9_DorNi3c-rEvI3Sx_HNRS2xU.jpg",
+        "description": "Хакатон по созданию цифровых продуктов и сервисов для города и бизнеса. Задачи по разработке сервисов для мотивации студентов, привлечения волонтеров, цифрового маркетинга, импортозамещения и разоблачения fake news. Узнать подробности и найти команду можно в Telegram-чате @MoscowCityHack"
+    }
+]
