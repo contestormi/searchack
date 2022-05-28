@@ -17,7 +17,17 @@ abstract class FirebaseFirestoreService {
       required String userEmail,
       required String text});
 
+  Future<void> setArrayDataForCollection(
+      {required String collectionName,
+      required String userEmail,
+      required List<String> list});
+
   Future<List<String>?> getDataFromCollection(
+      {required String userEmail,
+      required String collectionName,
+      required String key});
+
+  Future<List<String>?> getArrayDataFromCollection(
       {required String userEmail,
       required String collectionName,
       required String key});
@@ -39,6 +49,16 @@ class FirebaseFirestoreServiceImpl implements FirebaseFirestoreService {
   }
 
   @override
+  Future<void> setArrayDataForCollection(
+      {required String collectionName,
+      required String userEmail,
+      required List<String> list}) async {
+    await _db.collection(collectionName).doc(userEmail).set(
+      {DataBaseCollectionKeys.text: list},
+    );
+  }
+
+  @override
   Future<List<String>?> getDataFromCollection(
       {required String userEmail,
       required String collectionName,
@@ -51,6 +71,29 @@ class FirebaseFirestoreServiceImpl implements FirebaseFirestoreService {
     if (data.docs.isNotEmpty) {
       for (var doc in data.docs) {
         list.add(doc.data()[key]);
+      }
+      return list;
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<List<String>?> getArrayDataFromCollection(
+      {required String userEmail,
+      required String collectionName,
+      required String key}) async {
+    List<String> list = [];
+    QuerySnapshot<Map<String, dynamic>> data = await _db
+        .collection(collectionName)
+        .where(DataBaseCollectionKeys.documentId, isEqualTo: userEmail)
+        .get();
+    if (data.docs.isNotEmpty) {
+      for (var doc in data.docs) {
+        List<String> localList = (doc.data()[key] as List<dynamic>)
+            .map((e) => e.toString())
+            .toList();
+        list = localList;
       }
       return list;
     } else {

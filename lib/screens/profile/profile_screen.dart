@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/dialog/mult_select_dialog.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/screens/auth/auth_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
@@ -154,7 +156,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Ключевые навыки',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (ctx) {
+                              return MultiSelectDialog(
+                                title: const Text('Навыки'),
+                                items: [
+                                  MultiSelectItem<String>('Dart', 'Dart'),
+                                  MultiSelectItem<String>('Flutter', 'Flutter'),
+                                  MultiSelectItem<String>('JS', 'JS'),
+                                  MultiSelectItem<String>(
+                                      'React Native', 'React Native'),
+                                  MultiSelectItem<String>('TS', 'TS'),
+                                  MultiSelectItem<String>('Web', 'Web'),
+                                  MultiSelectItem<String>('HTML', 'HTML'),
+                                  MultiSelectItem<String>('Android', 'Android'),
+                                  MultiSelectItem<String>('iOS', 'iOS'),
+                                  MultiSelectItem<String>('Swift', 'Swift'),
+                                  MultiSelectItem<String>('Java', 'Java'),
+                                  MultiSelectItem<String>('Kotlin', 'Kotlin'),
+                                ],
+                                initialValue: const [],
+                                onConfirm: (values) async {
+                                  await context
+                                      .read<ProfileViewModel>()
+                                      .setKeySkillsData(
+                                        db: context.read<
+                                            FirebaseFirestoreServiceImpl>(),
+                                        userEmail:
+                                            context.read<User?>()!.email!,
+                                        list: values
+                                            .map((e) => e.toString())
+                                            .toList(),
+                                      );
+                                  await context
+                                      .read<ProfileViewModel>()
+                                      .getKeySkillsData(
+                                        db: context.read<
+                                            FirebaseFirestoreServiceImpl>(),
+                                        userEmail:
+                                            context.read<User?>()!.email!,
+                                      );
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 8),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: context
+                                        .watch<ProfileViewModel>()
+                                        .keySkills ==
+                                    null
+                                ? const Text(
+                                    'Добавьте ключевые навыки',
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                : SizedBox(
+                                    height: 20,
+                                    child: ListView.builder(
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: Text(
+                                            context
+                                                .watch<ProfileViewModel>()
+                                                .keySkills![index],
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: context
+                                          .watch<ProfileViewModel>()
+                                          .keySkills!
+                                          .length,
+                                      scrollDirection: Axis.horizontal,
+                                    ),
+                                  ),
                           ),
                         ),
                       ),
@@ -168,7 +260,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'О себе',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -193,13 +288,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           });
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 15),
+                          padding: const EdgeInsets.only(left: 15, top: 8),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               context.watch<ProfileViewModel>().description ??
                                   'Добавьте описание',
-                              style: const TextStyle(color: Colors.grey),
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ),

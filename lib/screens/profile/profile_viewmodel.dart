@@ -15,6 +15,7 @@ class ProfileViewModel with ChangeNotifier {
       {required FirebaseFirestoreService db, required String userEmail}) async {
     await getDescriptionData(db: db, userEmail: userEmail);
     await getProfileImage();
+    await getKeySkillsData(db: db, userEmail: userEmail);
   }
 
   Future<void> getDescriptionData(
@@ -39,12 +40,25 @@ class ProfileViewModel with ChangeNotifier {
 
   Future<void> getKeySkillsData(
       {required FirebaseFirestoreService db, required String userEmail}) async {
-    keySkills = (await db.getDataFromCollection(
+    keySkills = (await db.getArrayDataFromCollection(
       userEmail: userEmail,
       collectionName: DataBaseCollectionNames.keySkills,
       key: DataBaseCollectionKeys.text,
     ));
     notifyListeners();
+  }
+
+  Future<void> setKeySkillsData({
+    required FirebaseFirestoreService db,
+    required String userEmail,
+    required List<String> list,
+  }) async {
+    //TODO add error handling and field update
+    await db.setArrayDataForCollection(
+      userEmail: userEmail,
+      collectionName: DataBaseCollectionNames.keySkills,
+      list: list,
+    );
   }
 
   Future<void> getVkLinkData(
