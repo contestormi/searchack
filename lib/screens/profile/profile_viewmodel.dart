@@ -20,13 +20,17 @@ class ProfileViewModel with ChangeNotifier {
 
   Future<void> getDescriptionData(
       {required FirebaseFirestoreService db, required String userEmail}) async {
-    description = (await db.getDataFromCollection(
-      userEmail: userEmail,
-      collectionName: DataBaseCollectionNames.descriptionCollection,
-      key: DataBaseCollectionKeys.text,
-    ))!
-        .first;
-    notifyListeners();
+    try {
+      description = (await db.getDataFromCollection(
+        userEmail: userEmail,
+        collectionName: DataBaseCollectionNames.descriptionCollection,
+        key: DataBaseCollectionKeys.text,
+      ))!
+          .first;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> setProfileImage() async {

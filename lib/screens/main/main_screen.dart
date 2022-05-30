@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/screens/chat/chat_screen.dart';
+import 'package:searchack/screens/chat/chat_viewmodel.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
@@ -20,18 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const SearchScreen(),
     const ChatScreen(),
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ProfileViewModel>(
-          create: (_) => ProfileViewModel(),
-        ),
-        Provider<FirebaseFirestoreServiceImpl>(
-          create: (_) =>
-              FirebaseFirestoreServiceImpl(FirebaseFirestore.instance),
-        ),
-      ],
-      child: const ProfileScreen(),
-    ),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -42,29 +32,42 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Поиск',
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ProfileViewModel>(
+            create: (_) => ProfileViewModel(),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Сообщения',
+          Provider<FirebaseFirestoreServiceImpl>(
+            create: (_) =>
+                FirebaseFirestoreServiceImpl(FirebaseFirestore.instance),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Профиль',
+          ChangeNotifierProvider<ChatViewModel>(
+            create: (_) => ChatViewModel(),
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple,
-        onTap: _onItemTapped,
-      ),
-    );
+        child: Scaffold(
+          body: Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Поиск',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: 'Сообщения',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Профиль',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.purple,
+            onTap: _onItemTapped,
+          ),
+        ));
   }
 }
