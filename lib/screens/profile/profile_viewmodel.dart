@@ -14,7 +14,7 @@ class ProfileViewModel with ChangeNotifier {
   Future<void> init(
       {required FirebaseFirestoreService db, required String userEmail}) async {
     await getDescriptionData(db: db, userEmail: userEmail);
-    await getProfileImage();
+    await getProfileImage(userEmail);
     await getKeySkillsData(db: db, userEmail: userEmail);
   }
 
@@ -33,12 +33,12 @@ class ProfileViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> setProfileImage() async {
-    await firebaseStorageService.setProfileImage();
+  Future<void> setProfileImage(String userEmail) async {
+    await firebaseStorageService.setProfileImage(userEmail);
   }
 
-  Future<void> getProfileImage() async {
-    avatarLink = await firebaseStorageService.getProfileImage();
+  Future<void> getProfileImage(String userEmail) async {
+    avatarLink = await firebaseStorageService.getProfileImage(userEmail);
     notifyListeners();
   }
 

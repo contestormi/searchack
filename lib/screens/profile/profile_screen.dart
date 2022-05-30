@@ -101,10 +101,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () async {
                                 await context
                                     .read<ProfileViewModel>()
-                                    .setProfileImage();
+                                    .setProfileImage(user.email!);
                                 await context
                                     .read<ProfileViewModel>()
-                                    .getProfileImage();
+                                    .getProfileImage(user.email!);
                               },
                               child: Container(
                                 height: 100,
@@ -132,10 +132,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onTap: () async {
                                 await context
                                     .read<ProfileViewModel>()
-                                    .setProfileImage();
+                                    .setProfileImage(user.email!);
                                 await context
                                     .read<ProfileViewModel>()
-                                    .getProfileImage();
+                                    .getProfileImage(user.email!);
                               },
                               child: CircleAvatar(
                                 radius: 60.0,
@@ -306,16 +306,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Divider(),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 15),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Социальные сети',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 );
