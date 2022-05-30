@@ -19,11 +19,19 @@ class SearchScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      ClipRRect(
-                        child: Image.network(
-                          snapshot.data![index].image!,
-                        ),
-                        borderRadius: BorderRadius.circular(15.0),
+                      Image.network(
+                        snapshot.data![index].image!,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return ClipRRect(
+                              child: child,
+                              borderRadius: BorderRadius.circular(15.0),
+                            );
+                          }
+                          return const CircularProgressIndicator(
+                            color: Colors.purple,
+                          );
+                        },
                       ),
                       const SizedBox(height: 10),
                       Row(
