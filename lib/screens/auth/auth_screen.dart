@@ -10,40 +10,41 @@ class AuthScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 540,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage(
-                      'assets/splash_background.png',
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage(
+                        'assets/splash_background.png',
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned.fill(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/search_icon.png',
-                      scale: 2,
-                    ),
-                    const SizedBox(width: 10),
-                    const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'SearcHack',
-                        style: TextStyle(fontSize: 46),
+                Positioned.fill(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/search_icon.png',
+                        scale: 2,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'SearcHack',
+                          style: TextStyle(fontSize: 46),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
