@@ -8,6 +8,16 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        shape: const Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'Поиск',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       body: FutureBuilder<List<Hackathon>>(
         future: HackService().getHacks(),
         builder: ((context, snapshot) {
