@@ -3,10 +3,19 @@ import 'package:provider/provider.dart';
 import 'package:searchack/screens/main/main_screen.dart';
 import 'package:searchack/services/auth_service.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
+  bool visibility = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +36,7 @@ class RegisterScreen extends StatelessWidget {
         child: Column(
           children: [
             TextField(
+              keyboardType: TextInputType.emailAddress,
               controller: emailController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -37,8 +47,19 @@ class RegisterScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TextField(
+              obscureText: visibility,
               controller: passwordController,
               decoration: InputDecoration(
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        visibility = !visibility;
+                      });
+                    },
+                    child: visibility
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(2.0),
                   ),
