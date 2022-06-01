@@ -50,8 +50,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                       color: snapshot.data!.email! ==
                                               viewmodel
                                                   .guestBookMessages[index].name
-                                          ? Colors.grey[600]
-                                          : Colors.grey[400],
+                                          ? Colors.grey[500]
+                                          : Colors.grey[600],
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5)),
                                     ),
@@ -65,8 +65,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                             viewmodel
                                                 .guestBookMessages[index].name,
                                             style: const TextStyle(
-                                                color: Colors.white,
-                                                fontStyle: FontStyle.italic),
+                                              color: Colors.white70,
+                                              fontStyle: FontStyle.italic,
+                                            ),
                                           ),
                                           Text(
                                               viewmodel.guestBookMessages[index]
