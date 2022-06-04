@@ -5,7 +5,6 @@ import 'package:searchack/services/firebase_storage_service.dart';
 class ProfileViewModel with ChangeNotifier {
   String? description;
   List<String>? keySkills;
-  List<String>? vkLink;
   String? avatarLink;
 
   FirebaseStorageServiceImpl firebaseStorageService =
@@ -29,8 +28,20 @@ class ProfileViewModel with ChangeNotifier {
           .first;
       notifyListeners();
     } catch (e) {
-      print(e);
+      rethrow;
     }
+  }
+
+  Future<void> setDescriptionData({
+    required FirebaseFirestoreService db,
+    required String userEmail,
+    required String text,
+  }) async {
+    await db.setDataForCollection(
+      userEmail: userEmail,
+      collectionName: DataBaseCollectionNames.descriptionCollection,
+      text: text,
+    );
   }
 
   Future<void> setProfileImage(String userEmail) async {
@@ -57,47 +68,10 @@ class ProfileViewModel with ChangeNotifier {
     required String userEmail,
     required List<String> list,
   }) async {
-    //TODO add error handling and field update
     await db.setArrayDataForCollection(
       userEmail: userEmail,
       collectionName: DataBaseCollectionNames.keySkills,
       list: list,
-    );
-  }
-
-  Future<void> getVkLinkData(
-      {required FirebaseFirestoreService db, required String userEmail}) async {
-    vkLink = (await db.getDataFromCollection(
-      userEmail: userEmail,
-      collectionName: DataBaseCollectionNames.vkLink,
-      key: DataBaseCollectionKeys.text,
-    ));
-    notifyListeners();
-  }
-
-  Future<void> setDescriptionData({
-    required FirebaseFirestoreService db,
-    required String userEmail,
-    required String text,
-  }) async {
-    //TODO add error handling and field update
-    await db.setDataForCollection(
-      userEmail: userEmail,
-      collectionName: DataBaseCollectionNames.descriptionCollection,
-      text: text,
-    );
-  }
-
-  Future<void> setVkLinkData({
-    required FirebaseFirestoreService db,
-    required String userEmail,
-    required String link,
-  }) async {
-    //TODO add error handling and field update
-    await db.setDataForCollection(
-      userEmail: userEmail,
-      collectionName: DataBaseCollectionNames.vkLink,
-      text: link,
     );
   }
 }
