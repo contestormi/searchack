@@ -34,6 +34,7 @@ class AuthenticationServiceImpl implements AuthenticationService {
           email: email, password: password);
       return true;
     } on FirebaseException catch (e) {
+      print(e);
       throw e.message!;
     }
   }
