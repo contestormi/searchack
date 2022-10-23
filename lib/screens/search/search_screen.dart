@@ -1,6 +1,7 @@
+import 'package:drift/drift.dart' as dr;
 import 'package:flutter/material.dart';
-import 'package:searchack/models/hack_model.dart';
-import 'package:searchack/services/hack_service.dart';
+import 'package:searchack/db/database.dart';
+import 'package:searchack/main.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -18,8 +19,8 @@ class SearchScreen extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: FutureBuilder<List<Hackathon>>(
-        future: HackService().getHacks(),
+      body: StreamBuilder<List<Hack>>(
+        stream: database.getHacks(),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -28,33 +29,34 @@ class SearchScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.network(
-                        snapshot.data![index].image!,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) {
-                            return ClipRRect(
-                              child: child,
-                              borderRadius: BorderRadius.circular(15.0),
-                            );
-                          }
-                          return const CircularProgressIndicator(
-                            color: Colors.purple,
-                          );
-                        },
-                      ),
                       const SizedBox(height: 10),
                       Row(
                         children: [
                           Text(
-                            snapshot.data![index].hackName!,
+                            snapshot.data![index].title,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
-                      const SizedBox(height: 5),
-                      Text(snapshot.data![index].description!),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 2),
+                      Text(snapshot.data![index].description),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Дополнительная информация:',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Место проведения: ${snapshot.data![index].address}',
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Призовой фонд: ${snapshot.data![index].prizeFundAmount} рублей',
+                      ),
+                      Text(
+                        'Спонсор: ${snapshot.data![index].sponsorName}',
+                      ),
                       const Divider(
                         thickness: 0.5,
                         height: 2,
@@ -66,7 +68,7 @@ class SearchScreen extends StatelessWidget {
               }),
             );
           } else {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
         }),
       ),

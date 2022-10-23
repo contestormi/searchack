@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:searchack/db/database.dart';
 import 'package:searchack/screens/chat/chat_screen.dart';
 import 'package:searchack/screens/chat/chat_viewmodel.dart';
 import 'package:searchack/screens/persons/persons_screen.dart';
@@ -20,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const SearchScreen(),
+    SearchScreen(),
     const PersonsScreen(),
     const ChatScreen(),
     const ProfileScreen(),
