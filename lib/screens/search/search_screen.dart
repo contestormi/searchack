@@ -20,7 +20,9 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder<List<Hack>>(
-        stream: database.getHacks(),
+        stream: database.getHacks(
+          isStrict: true,
+        ),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -56,6 +58,9 @@ class SearchScreen extends StatelessWidget {
                       ),
                       Text(
                         'Спонсор: ${snapshot.data![index].sponsorName}',
+                      ),
+                      Text(
+                        'Компания организатор: ${snapshot.data![index].companyOrganizer}',
                       ),
                       const Divider(
                         thickness: 0.5,

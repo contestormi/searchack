@@ -34,9 +34,118 @@ class HacksDatabase extends _$HacksDatabase {
     });
   }
 
-  Stream<List<Hack>> getHacks({String title = ''}) {
+  Stream<List<Hack>> getHacks({
+    bool isStrict = false,
+    String title = '',
+    String sponsorName = '',
+    String companyOrganizer = '',
+    String description = '',
+    String address = '',
+    int prizeFundAmount = -1,
+    int startDate = 0,
+    int endDate = 0,
+  }) {
     var selectTitle = title == '' ? '' : "WHERE title LIKE '%$title%'";
-    final query = "SELECT * FROM hacks $selectTitle";
+
+    String strict() {
+      return isStrict ? 'AND' : 'OR';
+    }
+
+    String selectSponsorName() {
+      if (sponsorName == '') {
+        return '';
+      } else if (sponsorName != '' && title != '') {
+        return "${strict()} sponsor_name LIKE '%$sponsorName%'";
+      } else {
+        return "WHERE sponsor_name LIKE '%$sponsorName%'";
+      }
+    }
+
+    String selectCompanyOrganizer() {
+      if (companyOrganizer == '') {
+        return '';
+      } else if (companyOrganizer != '' && (title != '' || sponsorName != '')) {
+        return "${strict()} company_organizer LIKE '%$companyOrganizer%'";
+      } else {
+        return "WHERE company_organizer LIKE '%$companyOrganizer%'";
+      }
+    }
+
+    String selectDescription() {
+      if (description == '') {
+        return '';
+      } else if (description != '' &&
+          (title != '' || sponsorName != '' || companyOrganizer != '')) {
+        return "${strict()} description LIKE '%$companyOrganizer%'";
+      } else {
+        return "WHERE description LIKE '%$companyOrganizer%'";
+      }
+    }
+
+    String selectAddress() {
+      if (address == '') {
+        return '';
+      } else if (address != '' &&
+          (title != '' ||
+              sponsorName != '' ||
+              companyOrganizer != '' ||
+              description != '')) {
+        return "${strict()} address LIKE '%$companyOrganizer%'";
+      } else {
+        return "WHERE address LIKE '%$companyOrganizer%'";
+      }
+    }
+
+    String selectPrizeFundAmount() {
+      if (prizeFundAmount == -1) {
+        return '';
+      } else if (prizeFundAmount != -1 &&
+          (title != '' ||
+              sponsorName != '' ||
+              companyOrganizer != '' ||
+              description != '' ||
+              address != '')) {
+        return "${strict()} CAST(prize_fund_amount AS INT) = $prizeFundAmount";
+      } else {
+        return "WHERE CAST(prize_fund_amount AS INT) = $prizeFundAmount";
+      }
+    }
+
+    String selectStartDate() {
+      if (startDate == 0) {
+        return '';
+      } else if (startDate != 0 &&
+          (title != '' ||
+              sponsorName != '' ||
+              companyOrganizer != '' ||
+              description != '' ||
+              address != '' ||
+              prizeFundAmount != -1)) {
+        return "${strict()} CAST(start_date AS INT) > $startDate";
+      } else {
+        return "WHERE CAST(start_date AS INT) > $startDate";
+      }
+    }
+
+    String selectEndDate() {
+      if (endDate == 0) {
+        return '';
+      } else if (endDate != 0 &&
+              (title != '' ||
+                  sponsorName != '' ||
+                  companyOrganizer != '' ||
+                  description != '' ||
+                  address != '' ||
+                  prizeFundAmount != -1) ||
+          startDate != 0) {
+        return "${strict()} CAST(end_date AS INT) > $endDate";
+      } else {
+        return "WHERE CAST(end_date AS INT) > $endDate";
+      }
+    }
+
+    final query =
+        "SELECT * FROM hacks $selectTitle ${selectSponsorName()} ${selectCompanyOrganizer()} ${selectDescription()} ${selectAddress()} ${selectPrizeFundAmount()} ${selectStartDate()} ${selectEndDate()}";
     return customSelect(
       query,
       readsFrom: {hacks},
