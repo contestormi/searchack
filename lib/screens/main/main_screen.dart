@@ -8,6 +8,7 @@ import 'package:searchack/screens/persons/persons_screen.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
+import 'package:searchack/screens/search/search_viewmodel.dart';
 import 'package:searchack/services/firebase_firestore_service.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    SearchScreen(),
+    const SearchScreen(),
     const PersonsScreen(),
     const ChatScreen(),
     const ProfileScreen(),

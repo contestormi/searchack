@@ -138,9 +138,9 @@ class HacksDatabase extends _$HacksDatabase {
                   address != '' ||
                   prizeFundAmount != -1) ||
           startDate != 0) {
-        return "${strict()} CAST(end_date AS INT) > $endDate";
+        return "${strict()} CAST(end_date AS INT) < $endDate";
       } else {
-        return "WHERE CAST(end_date AS INT) > $endDate";
+        return "WHERE CAST(end_date AS INT) < $endDate";
       }
     }
 

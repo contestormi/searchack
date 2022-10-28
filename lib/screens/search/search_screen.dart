@@ -1,7 +1,9 @@
-import 'package:drift/drift.dart' as dr;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:searchack/db/database.dart';
 import 'package:searchack/main.dart';
+import 'package:searchack/screens/search/search_detailed.dart';
+import 'package:searchack/screens/search/search_viewmodel.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -14,14 +16,29 @@ class SearchScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'Поиск',
-          style: TextStyle(color: Colors.black),
+        title: GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => const SearchDetailed(),
+              )),
+          child: const Text(
+            'Поиск',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
       ),
       body: StreamBuilder<List<Hack>>(
         stream: database.getHacks(
-          isStrict: true,
+          address: context.watch<SearchViewModel>().address,
+          companyOrganizer: context.watch<SearchViewModel>().companyOrganizer,
+          description: context.watch<SearchViewModel>().description,
+          endDate: context.watch<SearchViewModel>().endDate,
+          isStrict: context.watch<SearchViewModel>().isStrict,
+          prizeFundAmount: context.watch<SearchViewModel>().prizeFundAmount,
+          sponsorName: context.watch<SearchViewModel>().sponsorName,
+          startDate: context.watch<SearchViewModel>().startDate,
+          title: context.watch<SearchViewModel>().title,
         ),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
@@ -61,6 +78,12 @@ class SearchScreen extends StatelessWidget {
                       ),
                       Text(
                         'Компания организатор: ${snapshot.data![index].companyOrganizer}',
+                      ),
+                      Text(
+                        'Дата начала: ${DateTime.fromMillisecondsSinceEpoch(snapshot.data![index].startDate).day}.${DateTime.fromMillisecondsSinceEpoch(snapshot.data![index].startDate).month}.${DateTime.fromMillisecondsSinceEpoch(snapshot.data![index].startDate).year}',
+                      ),
+                      Text(
+                        'Дата окончания: ${DateTime.fromMillisecondsSinceEpoch(snapshot.data![index].endDate).day}.${DateTime.fromMillisecondsSinceEpoch(snapshot.data![index].endDate).month}.${DateTime.fromMillisecondsSinceEpoch(snapshot.data![index].endDate).year}',
                       ),
                       const Divider(
                         thickness: 0.5,
