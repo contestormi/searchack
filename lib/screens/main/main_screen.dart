@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:searchack/db/database.dart';
 import 'package:searchack/screens/chat/chat_screen.dart';
 import 'package:searchack/screens/chat/chat_viewmodel.dart';
 import 'package:searchack/screens/persons/persons_screen.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
-import 'package:searchack/screens/search/search_viewmodel.dart';
 import 'package:searchack/services/firebase_firestore_service.dart';
 
 class MainScreen extends StatefulWidget {

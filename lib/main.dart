@@ -61,7 +61,7 @@ Future<void> main() async {
   // await database.into(database.hacks).insert(
   //       HacksCompanion.insert(
   //         title: 'Hack Money',
-  //         description: 'Один из крупнеших хакатонов по DeFi',
+  //         description: 'Один из крупнейших хакатонов по DeFi',
   //         startDate: 1636664400000,
   //         endDate: 1636923600000,
   //         sponsorName: 'HackDay',
@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
           initialData: null,
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MainScreen(),
       ),

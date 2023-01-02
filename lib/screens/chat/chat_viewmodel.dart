@@ -11,13 +11,12 @@ class GuestBookMessage {
 }
 
 class ChatViewModel with ChangeNotifier {
-  StreamSubscription<QuerySnapshot>? _guestBookSubscription;
   List<GuestBookMessage> _guestBookMessages = [];
   List<GuestBookMessage> get guestBookMessages => _guestBookMessages;
 
   void initMessages() {
     FirebaseAuth.instance.userChanges().listen((user) {
-      _guestBookSubscription = FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection('messages')
           .orderBy('timestamp', descending: true)
           .snapshots()

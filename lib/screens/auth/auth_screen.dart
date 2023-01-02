@@ -54,7 +54,8 @@ class AuthScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
                   ),
                   child: const Text(
                     'Войти',
@@ -81,7 +82,7 @@ class AuthScreen extends StatelessWidget {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RegisterScreen())),
+                          builder: (context) => const RegisterScreen())),
                   child: const Text(
                     'Регистрация',
                     style: TextStyle(
