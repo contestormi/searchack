@@ -17,6 +17,16 @@ class Hacks extends Table {
   IntColumn get startDate => integer()();
 
   IntColumn get endDate => integer()();
+
+  IntColumn get prizeFundAmount => integer()();
+
+  TextColumn get sponsorName => text()();
+
+  TextColumn get companyOrganizer => text()();
+
+  TextColumn get address => text()();
+
+  TextColumn get imageLink => text()();
 }
 
 @DriftDatabase(tables: [Hacks])
@@ -161,6 +171,7 @@ class HacksDatabase extends _$HacksDatabase {
                 startDate: row.read<int>('start_date'),
                 endDate: row.read<int>('end_date'),
                 id: row.read<int>('id'),
+                imageLink: row.read<String>('image_link'),
               ))
           .toList();
     });

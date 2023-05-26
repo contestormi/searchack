@@ -60,6 +60,8 @@ class SearchScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 2),
+                      Image.network(snapshot.data![index].imageLink),
+                      const SizedBox(height: 2),
                       Text(snapshot.data![index].description),
                       const SizedBox(height: 10),
                       const Text(

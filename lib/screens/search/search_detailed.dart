@@ -94,7 +94,7 @@ class _SearchDetailedState extends State<SearchDetailed> {
                 const Text('Компания организатор'),
                 const SizedBox(width: 20),
                 SizedBox(
-                  width: 200,
+                  width: 180,
                   height: 50,
                   child: TextFormField(
                     controller: companyController,

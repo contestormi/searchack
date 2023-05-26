@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/screens/chat/chat_screen.dart';
 import 'package:searchack/screens/chat/chat_viewmodel.dart';
-import 'package:searchack/screens/persons/persons_screen.dart';
 import 'package:searchack/screens/profile/profile_screen.dart';
 import 'package:searchack/screens/profile/profile_viewmodel.dart';
 import 'package:searchack/screens/search/search_screen.dart';
@@ -21,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const SearchScreen(),
-    const PersonsScreen(),
+    // const PersonsScreen(),
     const ChatScreen(),
     const ProfileScreen(),
   ];
@@ -58,10 +57,10 @@ class _MainScreenState extends State<MainScreen> {
                 icon: Icon(Icons.search),
                 label: 'Поиск',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: 'Пользователи',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.group),
+              //   label: 'Пользователи',
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.chat),
                 label: 'Сообщения',
