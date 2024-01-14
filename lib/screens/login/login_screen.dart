@@ -70,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 320,
               height: 40,
               child: ElevatedButton(
+                key: const ValueKey('Login Login Button'),
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchack/db/database.dart';
-import 'package:searchack/main.dart';
 import 'package:searchack/screens/search/search_detailed.dart';
 import 'package:searchack/screens/search/search_viewmodel.dart';
 
@@ -12,6 +11,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const ValueKey('SearchAppBar'),
         shape: const Border(bottom: BorderSide(color: Colors.grey, width: 1)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -29,17 +29,18 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder<List<Hack>>(
-        stream: database.getHacks(
-          address: context.watch<SearchViewModel>().address,
-          companyOrganizer: context.watch<SearchViewModel>().companyOrganizer,
-          description: context.watch<SearchViewModel>().description,
-          endDate: context.watch<SearchViewModel>().endDate,
-          isStrict: context.watch<SearchViewModel>().isStrict,
-          prizeFundAmount: context.watch<SearchViewModel>().prizeFundAmount,
-          sponsorName: context.watch<SearchViewModel>().sponsorName,
-          startDate: context.watch<SearchViewModel>().startDate,
-          title: context.watch<SearchViewModel>().title,
-        ),
+        stream: context.read<HacksDatabase>().getHacks(
+              address: context.watch<SearchViewModel>().address,
+              companyOrganizer:
+                  context.watch<SearchViewModel>().companyOrganizer,
+              description: context.watch<SearchViewModel>().description,
+              endDate: context.watch<SearchViewModel>().endDate,
+              isStrict: context.watch<SearchViewModel>().isStrict,
+              prizeFundAmount: context.watch<SearchViewModel>().prizeFundAmount,
+              sponsorName: context.watch<SearchViewModel>().sponsorName,
+              startDate: context.watch<SearchViewModel>().startDate,
+              title: context.watch<SearchViewModel>().title,
+            ),
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
