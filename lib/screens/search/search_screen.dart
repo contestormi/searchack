@@ -27,6 +27,15 @@ class SearchScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
         ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: Icon(
+              Icons.archive_outlined,
+              color: Colors.black,
+            ),
+          )
+        ],
       ),
       body: StreamBuilder<List<Hack>>(
         stream: context.read<HacksDatabase>().getHacks(
